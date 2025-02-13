@@ -3,7 +3,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
-import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 
@@ -19,10 +18,15 @@ class BotService {
         return text.contains("ozon.ru") || text.contains("wildberries.ru")
     }
 
-    fun createTodoistTask(content: String, listId: String): Boolean {
+    fun createTodoistTask(title: String, description: String, listId: String): Boolean {
         val url = "https://api.todoist.com/rest/v2/tasks"
-        val requestBody = """{"content": "$content", "project_id": "$listId"}"""
-
+        val requestBody = """
+            {
+                "content": "$title",
+                "description": "${description.trimIndent()}",
+                "project_id": "$listId"
+            }
+        """.trimIndent()
         return try {
             val headers = HttpHeaders()
             headers.set("Content-Type", "application/json")

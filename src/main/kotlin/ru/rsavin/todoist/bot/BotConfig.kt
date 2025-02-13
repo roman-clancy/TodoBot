@@ -1,5 +1,6 @@
 package ru.rsavin.todoist.bot
 
+import TodoistBot
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
